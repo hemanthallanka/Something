@@ -150,8 +150,22 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;cursor:none;}
 .lnext:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,164,82,.05);}
 
 /* ═══ PAGE 4 – FINAL MESSAGE ═══ */
-#page4{background:radial-gradient(ellipse at 50% 38%,#0c0814 0%,#04020a 70%,#000 100%);}
-.p4-scroll{width:min(660px,90vw);max-height:90vh;overflow-y:auto;display:flex;flex-direction:column;align-items:center;text-align:center;z-index:10;padding:4px;}
+/* KEY FIX: Override overflow:hidden from .page so the scroll container works */
+#page4{
+  background:radial-gradient(ellipse at 50% 38%,#0c0814 0%,#04020a 70%,#000 100%);
+  overflow-y: auto !important;
+  justify-content: flex-start !important;
+  align-items: center;
+}
+.p4-scroll{
+  width:min(660px,90vw);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  z-index:10;
+  padding: 40px 4px 60px 4px;
+}
 .p4-scroll::-webkit-scrollbar{width:2px;}
 .p4-scroll::-webkit-scrollbar-thumb{background:rgba(201,164,82,.28);}
 .p4-heart{font-size:1.6rem;animation:hbeat 2.2s ease-in-out infinite;display:block;margin-bottom:8px;}
@@ -268,13 +282,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;cursor:none;}
   Do everything you want to do, without fear holding you back—
   explore, try, fail, learn… and grow through it all.<br><br>
 
-  Keep chasing your dreams, especially that <span class="hl">bank job</span> you’re working so hard for.<br>
-  I know you’re capable of achieving it, no matter how long it takes.<br><br>
+  Keep chasing your dreams, especially that <span class="hl">bank job</span> you're working so hard for.<br>
+  I know you're capable of achieving it, no matter how long it takes.<br><br>
 
-  There’s so much waiting for you in life,
+  There's so much waiting for you in life,
   and you deserve every bit of happiness that comes your way.<br><br>
 
-  So smile more, stress less, and keep becoming the person you’re meant to be. 🤍
+  So smile more, stress less, and keep becoming the person you're meant to be. 🤍
 </p>
       </div>
       <div class="ldiv"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
@@ -302,30 +316,30 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;cursor:none;}
   I know you may never be <span class="hl">mine</span>.<br><br>
 
   Sometimes I wonder why you never felt the same.<br>
-  Maybe it’s the distance… maybe because we were just <span class="hl">texts on a screen</span>.<br>
+  Maybe it's the distance… maybe because we were just <span class="hl">texts on a screen</span>.<br>
   Or maybe someone closer to you had the chance I never did.<br><br>
 
-  But this feeling… it doesn’t listen to logic.<br>
+  But this feeling… it doesn't listen to logic.<br>
   It stays, it grows, it turns into something that hurts sometimes—<br>
   like a quiet kind of <span class="hl">hell</span> I carry inside.<br><br>
 
-  And still, I can’t help but feel—<br>
+  And still, I can't help but feel—<br>
   if I had the chance to be there with you,<br>
   to show you things instead of just typing them…<br>
   maybe you would have seen how much I truly <span class="hl">care</span>.<br><br>
 
-  Because some feelings aren’t meant to be written…<br>
-  they’re meant to be felt, in presence, in moments, in real life.<br><br>
+  Because some feelings aren't meant to be written…<br>
+  they're meant to be felt, in presence, in moments, in real life.<br><br>
 
   Yet somehow, in the same breath,<br>
   it feels like <span class="hl">heaven</span> too…<br>
-  because it’s <span class="hl">you</span>. <span class="tiny-heart">🤍</span><br><br>
+  because it's <span class="hl">you</span>. <span class="tiny-heart">🤍</span><br><br>
 
-  And maybe that’s what makes it real—<br>
+  And maybe that's what makes it real—<br>
   not having you, but still feeling like,<br>
-  in some strange way… you’re already <span class="hl">mine</span>.
+  in some strange way… you're already <span class="hl">mine</span>.
 </p>
-        <p>The world is so much more <span class="hl">luminous</span> with you in it. Happy Birthday, dearest Sowjanya. ✨</p>
+        <p>The world is so much more <span class="hl">luminous</span> with you in it. Happy Birthday, dearest Sowji... ✨</p>
       </div>
       <span class="p4-sign">With warmth & wonder — always 🦋</span>
     </div>
@@ -380,30 +394,20 @@ setInterval(()=>{rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ringEl.style.left=rx+'px';ringE
   }
 })();
 
-/* ══════════════════════════════════════════
-   CANVAS BUTTERFLY SYSTEM
-   Wing foreshortening via cosine projection:
-   apparent_x = actual_x * |sin(flapAngle)|
-   This is physically accurate 3-D fold-about-body-axis.
-══════════════════════════════════════════ */
-
-// Wing bezier paths — left-side coords (x ≤ 0).
-// Format: each segment = [cp1x,cp1y, cp2x,cp2y, endx,endy]
-// first item = [startx, starty]  (moveTo)
 const SP=[
-  { // ── Blue Morpho ──
+  {
     fw:[ [0,38], [-2,20,-26,4,-50,9], [-70,12,-84,30,-72,44], [-60,56,-26,58,-9,48], [-3,44,-1,41,0,39] ],
     hw:[ [0,43], [-9,55,-36,68,-54,61], [-66,53,-60,74,-43,77], [-24,80,-4,65,0,54] ],
     c1:'#10286e',c2:'#2a5ec4',c3:'#5ea0e8',c4:'#0e2060',
     spot:'rgba(190,220,255,0.55)',border:'rgba(5,10,30,0.85)',vein:'rgba(5,12,40,0.28)',sheen:'rgba(140,190,255,0.18)'
   },
-  { // ── Monarch ──
+  {
     fw:[ [0,37], [-2,17,-22,4,-44,8], [-62,12,-74,30,-64,44], [-52,57,-22,57,-9,47], [-3,43,-1,40,0,38] ],
     hw:[ [0,41], [-7,53,-32,65,-50,58], [-62,51,-56,71,-40,74], [-22,77,-4,63,0,52] ],
     c1:'#8c2e00',c2:'#d45808',c3:'#f07828',c4:'#6e2000',
     spot:'rgba(255,255,255,0.65)',border:'rgba(8,5,0,0.85)',vein:'rgba(18,8,0,0.28)',sheen:'rgba(255,190,80,0.15)'
   },
-  { // ── Purple Emperor ──
+  {
     fw:[ [0,37], [-2,17,-20,3,-42,7], [-62,11,-76,30,-64,44], [-51,57,-22,57,-8,47], [-3,43,-1,40,0,38] ],
     hw:[ [0,41], [-7,53,-34,65,-52,59], [-64,52,-58,72,-42,76], [-24,79,-4,64,0,52] ],
     c1:'#2e0a50',c2:'#5e28a0',c3:'#9858d8',c4:'#240840',
@@ -411,60 +415,33 @@ const SP=[
   }
 ];
 
-/* Draw one wing side.
-   xf = x-mirror factor: +1 for left wing (x stays negative), −1 flips to right.
-   s  = spread factor 0..1 (foreshortening). */
 function drawWingSide(ctx, sp, s, xf, opacity) {
-  // ── hindwing ──
   ctx.beginPath();
   ctx.moveTo(sp.hw[0][0]*xf*s, sp.hw[0][1]);
-  for(let i=1;i<sp.hw.length;i++){
-    const g=sp.hw[i];
-    ctx.bezierCurveTo(g[0]*xf*s,g[1], g[2]*xf*s,g[3], g[4]*xf*s,g[5]);
-  }
+  for(let i=1;i<sp.hw.length;i++){const g=sp.hw[i];ctx.bezierCurveTo(g[0]*xf*s,g[1], g[2]*xf*s,g[3], g[4]*xf*s,g[5]);}
   ctx.closePath();
-  // hindwing gradient
   const hg=ctx.createLinearGradient(0,42, sp.hw[1][4]*xf*s, 70);
   hg.addColorStop(0,sp.c4); hg.addColorStop(.55,sp.c2); hg.addColorStop(1,sp.c4);
-  ctx.fillStyle=hg; ctx.globalAlpha=opacity*.85;
-  ctx.fill();
+  ctx.fillStyle=hg; ctx.globalAlpha=opacity*.85; ctx.fill();
   ctx.strokeStyle=sp.border; ctx.lineWidth=0.55; ctx.stroke();
-
-  // ── forewing ──
   ctx.beginPath();
   ctx.moveTo(sp.fw[0][0]*xf*s, sp.fw[0][1]);
-  for(let i=1;i<sp.fw.length;i++){
-    const g=sp.fw[i];
-    ctx.bezierCurveTo(g[0]*xf*s,g[1], g[2]*xf*s,g[3], g[4]*xf*s,g[5]);
-  }
+  for(let i=1;i<sp.fw.length;i++){const g=sp.fw[i];ctx.bezierCurveTo(g[0]*xf*s,g[1], g[2]*xf*s,g[3], g[4]*xf*s,g[5]);}
   ctx.closePath();
-  // forewing gradient — richer colour
   const fg=ctx.createLinearGradient(sp.fw[1][4]*xf*s,8, 0,50);
   fg.addColorStop(0,sp.c3); fg.addColorStop(.42,sp.c2); fg.addColorStop(1,sp.c1);
-  ctx.fillStyle=fg; ctx.globalAlpha=opacity;
-  ctx.fill();
+  ctx.fillStyle=fg; ctx.globalAlpha=opacity; ctx.fill();
   ctx.strokeStyle=sp.border; ctx.lineWidth=0.7; ctx.stroke();
-
-  // ── iridescent sheen (only when wings open enough) ──
   if(s>.25){
     ctx.beginPath();
     ctx.moveTo(sp.fw[0][0]*xf*s, sp.fw[0][1]);
-    for(let i=1;i<sp.fw.length;i++){
-      const g=sp.fw[i];
-      ctx.bezierCurveTo(g[0]*xf*s,g[1], g[2]*xf*s,g[3], g[4]*xf*s,g[5]);
-    }
+    for(let i=1;i<sp.fw.length;i++){const g=sp.fw[i];ctx.bezierCurveTo(g[0]*xf*s,g[1], g[2]*xf*s,g[3], g[4]*xf*s,g[5]);}
     ctx.closePath();
     ctx.fillStyle=sp.sheen; ctx.globalAlpha=opacity*s*.7; ctx.fill();
   }
-
-  // ── wing veins ──
   const vEnds=[[-48,20],[-56,33],[-53,47],[-44,60],[-28,62]];
   ctx.strokeStyle=sp.vein; ctx.lineWidth=0.5; ctx.globalAlpha=opacity*.75;
-  vEnds.forEach(([vx,vy])=>{
-    ctx.beginPath(); ctx.moveTo(0,42); ctx.lineTo(vx*xf*s,vy); ctx.stroke();
-  });
-
-  // ── spots ──
+  vEnds.forEach(([vx,vy])=>{ctx.beginPath(); ctx.moveTo(0,42); ctx.lineTo(vx*xf*s,vy); ctx.stroke();});
   const spots=[[-52,17,3.4],[-62,31,3],[-68,44,2.8],[-46,56,2.9],[-26,64,2.4]];
   spots.forEach(([px,py,r])=>{
     const sx2=px*xf*s; const rr=r*Math.max(.25,s);
@@ -479,7 +456,6 @@ function drawWingSide(ctx, sp, s, xf, opacity) {
 
 function drawBody(ctx, opacity){
   ctx.globalAlpha=opacity;
-  // abdomen
   ctx.beginPath();
   ctx.moveTo(0,21);
   ctx.bezierCurveTo(-2.4,27,-2.9,37,-2.4,50);
@@ -487,15 +463,12 @@ function drawBody(ctx, opacity){
   ctx.bezierCurveTo(1.4,70,1.9,62,2.4,50);
   ctx.bezierCurveTo(2.9,37,2.4,27,0,21); ctx.closePath();
   ctx.fillStyle='#18100c'; ctx.fill();
-  // sheen stripe
   ctx.beginPath(); ctx.moveTo(-.5,25); ctx.bezierCurveTo(-1,34,-1,48,-.5,61);
   ctx.strokeStyle='rgba(255,255,255,0.14)'; ctx.lineWidth=1.1; ctx.stroke();
-  // head
   ctx.beginPath(); ctx.arc(0,18,4.4,0,Math.PI*2);
   ctx.fillStyle='#1a0e0a'; ctx.fill();
   ctx.beginPath(); ctx.arc(-1.2,16.5,1.5,0,Math.PI*2);
   ctx.fillStyle='rgba(255,255,255,0.12)'; ctx.fill();
-  // antennae
   ctx.strokeStyle='rgba(155,120,80,0.55)'; ctx.lineWidth=0.75;
   ctx.beginPath(); ctx.moveTo(-1.5,15); ctx.quadraticCurveTo(-13,1,-19,-12); ctx.stroke();
   ctx.beginPath(); ctx.moveTo( 1.5,15); ctx.quadraticCurveTo( 13,1, 19,-12); ctx.stroke();
@@ -507,93 +480,54 @@ function drawBody(ctx, opacity){
   });
 }
 
-/* ─── Butterfly object ─── */
 class Butterfly{
-  constructor(){
-    this.reset();
-    // start invisible — fade in
-    this.opacity=0;
-    this.life=0;
-  }
+  constructor(){this.reset();this.opacity=0;this.life=0;}
   reset(){
     this.x=(Math.random()*.8+.1)*window.innerWidth;
     this.y=(Math.random()*.7+.1)*window.innerHeight;
-    // gentle random velocity
-    const angle=Math.random()*Math.PI*2;
-    const speed=0.25+Math.random()*.35;
-    this.vx=Math.cos(angle)*speed;
-    this.vy=Math.sin(angle)*speed;
-    // flap
-    this.flapPhase=Math.random()*Math.PI*2;
-    this.flapSpeed=4.0+Math.random()*2.2; // rad/s
-    // drift wobble
-    this.wobble=Math.random()*Math.PI*2;
-    this.wobbleSpeed=0.4+Math.random()*.5;
-    // appearance
-    this.scale=(0.55+Math.random()*.65)*.9;
-    this.species=Math.floor(Math.random()*3);
-    this.maxLife=22+Math.random()*14; // seconds
-    this.targetOpacity=0.82+Math.random()*.18;
+    const angle=Math.random()*Math.PI*2,speed=0.25+Math.random()*.35;
+    this.vx=Math.cos(angle)*speed;this.vy=Math.sin(angle)*speed;
+    this.flapPhase=Math.random()*Math.PI*2;this.flapSpeed=4.0+Math.random()*2.2;
+    this.wobble=Math.random()*Math.PI*2;this.wobbleSpeed=0.4+Math.random()*.5;
+    this.scale=(0.55+Math.random()*.65)*.9;this.species=Math.floor(Math.random()*3);
+    this.maxLife=22+Math.random()*14;this.targetOpacity=0.82+Math.random()*.18;
   }
   update(dt){
-    this.life+=dt;
-    this.flapPhase+=this.flapSpeed*dt;
-    this.wobble+=this.wobbleSpeed*dt;
-    // curved, organic flight
-    this.vx+=Math.sin(this.wobble*.8)*0.012;
-    this.vy+=Math.sin(this.wobble*1.15)*0.008 - 0.003; // very slight upward lift
-    // gentle damping
-    this.vx*=0.994; this.vy*=0.994;
-    this.x+=this.vx*55*dt;
-    this.y+=this.vy*55*dt;
-    // fade
+    this.life+=dt;this.flapPhase+=this.flapSpeed*dt;this.wobble+=this.wobbleSpeed*dt;
+    this.vx+=Math.sin(this.wobble*.8)*0.012;this.vy+=Math.sin(this.wobble*1.15)*0.008-0.003;
+    this.vx*=0.994;this.vy*=0.994;this.x+=this.vx*55*dt;this.y+=this.vy*55*dt;
     const ft=1.8;
-    if(this.life<ft) this.opacity=(this.life/ft)*this.targetOpacity;
-    else if(this.life>this.maxLife-ft) this.opacity=Math.max(0,((this.maxLife-this.life)/ft)*this.targetOpacity);
+    if(this.life<ft)this.opacity=(this.life/ft)*this.targetOpacity;
+    else if(this.life>this.maxLife-ft)this.opacity=Math.max(0,((this.maxLife-this.life)/ft)*this.targetOpacity);
     else this.opacity=this.targetOpacity;
     return this.life<this.maxLife;
   }
   draw(ctx){
     const sp=SP[this.species];
-    // ── REALISTIC FORESHORTENING ──
-    // rawSpread oscillates 0→1→0 via |sin|
-    // pow(.45) biases toward open (wings mostly open, fast close = natural)
     const raw=Math.abs(Math.sin(this.flapPhase));
-    const s=Math.pow(raw,.45);   // 0=edge-on, 1=fully open
-    // subtle vertical bounce synced with flap (body dips on downstroke)
+    const s=Math.pow(raw,.45);
     const bounce=Math.sin(this.flapPhase*2)*1.2;
-
     ctx.save();
     ctx.translate(this.x, this.y+bounce*this.scale);
     ctx.scale(this.scale, this.scale);
-
-    // draw left wing (xf=1, coords already negative)
     drawWingSide(ctx, sp, s, 1, this.opacity);
-    // draw right wing (xf=-1, mirrors to positive x)
     drawWingSide(ctx, sp, s, -1, this.opacity);
-    // draw body on top
     drawBody(ctx, this.opacity);
-
     ctx.restore();
   }
 }
 
-/* ─── Butterfly loop ─── */
 const bfc=document.getElementById('bfCanvas');
 const bfx=bfc.getContext('2d');
 function resizeBF(){bfc.width=window.innerWidth;bfc.height=window.innerHeight;}
 resizeBF(); window.addEventListener('resize',resizeBF);
-
 let butterflies=[];
 let lastT=performance.now();
-
-// Spawn staggered — max 3 on screen at once
 function maybeSpawn(){if(butterflies.length<3)butterflies.push(new Butterfly());}
 setTimeout(()=>maybeSpawn(),900);
 setTimeout(()=>maybeSpawn(),3400);
 setTimeout(()=>maybeSpawn(),6200);
 setInterval(()=>maybeSpawn(),7500);
-
 (function bfLoop(now){
   const dt=Math.min((now-lastT)/1000,.05); lastT=now;
   bfx.clearRect(0,0,bfc.width,bfc.height);
@@ -710,6 +644,8 @@ function gotoPage(n){
   if(!next)return;
   next.classList.remove('hidden');
   next.classList.add('active');
+  // Scroll page 4 back to top on entry
+  if(n===4){next.scrollTop=0;}
   if(n===2){clearInterval(fwi);setTimeout(startFW,400);}
   if(n===1){const mb=document.querySelector('.mic-btn');if(mb)mb.textContent='🎙 Blow with Microphone';}
 }
